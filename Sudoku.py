@@ -25,18 +25,24 @@ def get_square_draft(board_draft, square):
 
 def line(board, line, board_draft):
     for col in range(9):
-        square = find_square(line, col)
         if board[line][col] == 0:
+            start_line = (line // 3) * 3
+            start_col = (col // 3) * 3
             for j in range(1, 10):
                 flag = 0
                 for k in range(9):
                     if board_draft[line][k] == j or board_draft[k][col] == j:
                         flag = 1
-                    for m in range(9):
-                        for n in range(9):
-                            if square == find_square(m, n):
-                                if board_draft[m][n] == j:
-                                    flag = 1
+                        break
+                if flag:
+                    continue
+                for m in range(start_line, start_line + 3):
+                    for n in range(start_col, start_col + 3):
+                        if board_draft[m][n] == j:
+                            flag = 1
+                            break
+                    if flag:
+                        break    
                 if flag == 0:
                     board_draft[line][col].append(j)
 
