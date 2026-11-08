@@ -17,10 +17,11 @@ def get_square_draft(board_draft, square):
                 [[], [], []],
                 [[], [], []],
             ]
-    for line in range(9):
-        for col in range(9):
-            if find_square(line, col) == square:
-                square_draft[line % 3][col % 3] = board_draft[line][col]
+    start_line = (square // 3) * 3
+    start_col = (square % 3) * 3
+    for line in range(start_line, start_line + 3):
+        for col in range(start_col, start_col + 3):
+            square_draft[line % 3][col % 3] = board_draft[line][col]
     return square_draft
 
 def line(board, line, board_draft):
